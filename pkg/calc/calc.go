@@ -1,11 +1,11 @@
-package main
+package calc
 
 import (
 	"errors"
 	"strconv"
 )
 
-var ErrorInvalidInput = errors.New("an invalid input was made")
+var ErrorInvalidInput = errors.New("expression is not valid")
 var ErrorDevisionByZero = errors.New("division by zero is not allowed")
 
 func Calc(expression string) (float64, error) {
