@@ -29,9 +29,9 @@ func CalcHandler(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(response)
 		return
 	}
-	responce := models.Response{
+	response := models.Response{
 		Result: result,
 	}
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(responce)
+	json.NewEncoder(w).Encode(response)
 }
