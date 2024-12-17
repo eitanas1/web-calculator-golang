@@ -1,17 +1,19 @@
 package calc
 
 import (
-	"errors"
 	"strconv"
 )
 
-var ErrorInvalidInput = errors.New("expression is not valid")
-var ErrorDevisionByZero = errors.New("division by zero is not allowed")
-
-func Calc(expression string) (float64, error) {
-	if expression == "" {
-		return 0, ErrorInvalidInput
+func Calc(stringExpression string) (float64, error) {
+	expression, err := tokenize(stringExpression)
+	if err != nil {
+		return 0, err
 	}
+
+	if len(expression) == 0 {
+		return 0, ErrorEmptyExpression
+	}
+
 	priority := map[string]int{
 		"(": 0,
 		")": 1,
@@ -20,51 +22,57 @@ func Calc(expression string) (float64, error) {
 		"*": 3,
 		"/": 3,
 	}
-	stack := []string{}
+	stack := []Token{}
 	stackResultPolish := make([]float64, 0)
-	reversePolishNotation := ""
+	reversePolishNotation := []Token{}
 
-	for _, symbol := range expression {
-		if _, ok := priority[string(symbol)]; ok {
-			if string(symbol) == ")" {
-				for i := len(stack) - 1; i >= 0 && stack[i] != "("; i-- {
-					reversePolishNotation += string(stack[len(stack)-1])
+	for _, token := range expression {
+		if _, ok := priority[token.Value]; ok {
+			if token.Value == ")" {
+				for i := len(stack) - 1; i >= 0 && stack[i].Value != "("; i-- {
+					reversePolishNotation = append(reversePolishNotation, stack[len(stack)-1])
 					stack = stack[:len(stack)-1]
 				}
-				if stack[len(stack)-1] == "(" {
+
+				if len(stack) > 0 && stack[len(stack)-1].Value == "(" {
 					stack = stack[:len(stack)-1]
 				}
 				continue
 			}
-			for len(stack) > 0 && priority[stack[len(stack)-1]] >= priority[string(symbol)] && string(symbol) != "(" {
-				reversePolishNotation += stack[len(stack)-1]
+
+			for len(stack) > 0 && priority[stack[len(stack)-1].Value] >= priority[token.Value] && token.Value != "(" {
+				reversePolishNotation = append(reversePolishNotation, stack[len(stack)-1])
 				stack = stack[:len(stack)-1]
 			}
-			stack = append(stack, string(symbol))
-		} else if symbol >= '0' && symbol <= '9' {
-			reversePolishNotation += string(symbol)
+			stack = append(stack, token)
+
+		} else if token.IsNumber {
+			reversePolishNotation = append(reversePolishNotation, stack[len(stack)-1])
 		} else {
 			return 0, ErrorInvalidInput
 		}
 	}
+
 	for len(stack) > 0 {
-		reversePolishNotation += stack[len(stack)-1]
+		reversePolishNotation = append(reversePolishNotation, stack[len(stack)-1])
 		stack = stack[:len(stack)-1]
 	}
 
-	for _, symbol := range reversePolishNotation {
-		floatSymbol, err := strconv.ParseFloat(string(symbol), 64)
+	for _, token := range reversePolishNotation {
+		floatNumber, err := strconv.ParseFloat(token.Value, 64)
+
 		if err == nil {
-			stackResultPolish = append(stackResultPolish, floatSymbol)
+			stackResultPolish = append(stackResultPolish, floatNumber)
 		} else {
 			if len(stackResultPolish) < 2 {
 				return 0, ErrorInvalidInput
 			}
+
 			num1 := stackResultPolish[len(stackResultPolish)-1]
 			num2 := stackResultPolish[len(stackResultPolish)-2]
 			stackResultPolish = stackResultPolish[:len(stackResultPolish)-2]
 
-			switch string(symbol) {
+			switch token.Value {
 			case "+":
 				stackResultPolish = append(stackResultPolish, num1+num2)
 			case "-":

@@ -19,8 +19,8 @@ func TestCalc(t *testing.T) {
 		},
 		{
 			name:       "Simple multiplication",
-			expression: "3*3",
-			wantValue:  9,
+			expression: "3*25",
+			wantValue:  75,
 			wantError:  nil,
 		},
 		{
@@ -31,8 +31,8 @@ func TestCalc(t *testing.T) {
 		},
 		{
 			name:       "Simple subtraction",
-			expression: "5-3",
-			wantValue:  2,
+			expression: "55-3",
+			wantValue:  52,
 			wantError:  nil,
 		},
 		{
