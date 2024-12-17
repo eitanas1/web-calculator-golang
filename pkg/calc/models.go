@@ -4,7 +4,8 @@ import "errors"
 
 var ErrorEmptyExpression = errors.New("expression is empty")
 var ErrorInvalidInput = errors.New("expression is not valid")
-var ErrorDevisionByZero = errors.New("division by zero is not allowed")
+var ErrorDivisionByZero = errors.New("division by zero is not allowed")
+var ErrorUnclosedBracket = errors.New("the brackets in the expression are not consistent")
 
 type Token struct {
 	Value    string

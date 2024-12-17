@@ -19,21 +19,21 @@ func tokenize(expression string) ([]Token, error) {
 
 		if unicode.IsDigit(symbol) {
 			number += string(symbol)
-			if i+1 == len(expression) {
+			if i+1 == len(expression) || !unicode.IsDigit(rune(expression[i+1])) {
 				tokens = append(tokens, *newToken(number, true))
-				continue
+				number = ""
 			}
-			next_symbol := expression[i+1]
-			if !unicode.IsDigit(rune(next_symbol)) {
-				tokens = append(tokens, *newToken(number, true))
-			}
+			// next_symbol := expression[i+1]
+			// if !unicode.IsDigit(rune(next_symbol)) {
+			// 	tokens = append(tokens, *newToken(number, true))
+			// }
 			continue
 		}
 
-		if number != "" {
-			tokens = append(tokens, *newToken(number, true))
-			number = ""
-		}
+		// if number != "" {
+		// 	tokens = append(tokens, *newToken(number, true))
+		// 	number = ""
+		// }
 
 		switch string(symbol) {
 		case "+", "-", "/", "*", "(", ")":

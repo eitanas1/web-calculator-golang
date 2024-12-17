@@ -34,26 +34,29 @@ func Calc(stringExpression string) (float64, error) {
 					stack = stack[:len(stack)-1]
 				}
 
-				if len(stack) > 0 && stack[len(stack)-1].Value == "(" {
+				if len(stack) > 0 && lastToken(stack).Value == "(" {
 					stack = stack[:len(stack)-1]
+				} else {
+					return 0, ErrorUnclosedBracket
 				}
 				continue
 			}
 
-			for len(stack) > 0 && priority[stack[len(stack)-1].Value] >= priority[token.Value] && token.Value != "(" {
+			for len(stack) > 0 && priority[lastToken(stack).Value] >= priority[token.Value] && token.Value != "(" {
 				reversePolishNotation = append(reversePolishNotation, lastToken(stack))
 				stack = stack[:len(stack)-1]
 			}
 			stack = append(stack, token)
 
 		} else if token.IsNumber {
-			reversePolishNotation = append(reversePolishNotation, lastToken(stack))
+			reversePolishNotation = append(reversePolishNotation, token)
 		} else {
 			return 0, ErrorInvalidInput
 		}
 	}
 
 	for len(stack) > 0 {
+
 		reversePolishNotation = append(reversePolishNotation, lastToken(stack))
 		stack = stack[:len(stack)-1]
 	}
@@ -81,7 +84,7 @@ func Calc(stringExpression string) (float64, error) {
 				stackResultPolish = append(stackResultPolish, num2*num1)
 			case "/":
 				if num1 == 0 {
-					return 0, ErrorDevisionByZero
+					return 0, ErrorDivisionByZero
 				}
 				stackResultPolish = append(stackResultPolish, num2/num1)
 			}
