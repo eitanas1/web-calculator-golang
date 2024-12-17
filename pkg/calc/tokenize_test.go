@@ -74,6 +74,11 @@ func TestTokenize(t *testing.T) {
 			wantError:  ErrorInvalidInput,
 		},
 		{
+			expression: "32 3",
+			wantOutput: nil,
+			wantError:  ErrorMissingOperand,
+		},
+		{
 			expression: "2.5 + 3",
 			wantOutput: nil,
 			wantError:  ErrorInvalidInput,

@@ -56,6 +56,11 @@ func TestCalc(t *testing.T) {
 			wantError:  nil,
 		},
 		{
+			expression: "32 5",
+			wantValue:  0,
+			wantError:  ErrorInvalidInput,
+		},
+		{
 			expression: "((2+3)*2)",
 			wantValue:  10,
 			wantError:  nil,
