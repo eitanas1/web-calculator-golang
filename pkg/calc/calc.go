@@ -30,7 +30,7 @@ func Calc(stringExpression string) (float64, error) {
 		if _, ok := priority[token.Value]; ok {
 			if token.Value == ")" {
 				for i := len(stack) - 1; i >= 0 && stack[i].Value != "("; i-- {
-					reversePolishNotation = append(reversePolishNotation, stack[len(stack)-1])
+					reversePolishNotation = append(reversePolishNotation, lastToken(stack))
 					stack = stack[:len(stack)-1]
 				}
 
@@ -41,20 +41,20 @@ func Calc(stringExpression string) (float64, error) {
 			}
 
 			for len(stack) > 0 && priority[stack[len(stack)-1].Value] >= priority[token.Value] && token.Value != "(" {
-				reversePolishNotation = append(reversePolishNotation, stack[len(stack)-1])
+				reversePolishNotation = append(reversePolishNotation, lastToken(stack))
 				stack = stack[:len(stack)-1]
 			}
 			stack = append(stack, token)
 
 		} else if token.IsNumber {
-			reversePolishNotation = append(reversePolishNotation, stack[len(stack)-1])
+			reversePolishNotation = append(reversePolishNotation, lastToken(stack))
 		} else {
 			return 0, ErrorInvalidInput
 		}
 	}
 
 	for len(stack) > 0 {
-		reversePolishNotation = append(reversePolishNotation, stack[len(stack)-1])
+		reversePolishNotation = append(reversePolishNotation, lastToken(stack))
 		stack = stack[:len(stack)-1]
 	}
 

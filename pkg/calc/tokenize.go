@@ -4,15 +4,8 @@ import (
 	"unicode"
 )
 
-func newToken(value string, isNumber bool) *Token {
-	new_token := Token{
-		Value:    value,
-		IsNumber: isNumber,
-	}
-	return &new_token
-}
-
 func tokenize(expression string) ([]Token, error) {
+
 	var tokens []Token
 	var number string
 

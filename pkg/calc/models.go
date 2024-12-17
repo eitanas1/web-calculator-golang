@@ -10,3 +10,15 @@ type Token struct {
 	Value    string
 	IsNumber bool
 }
+
+func newToken(value string, isNumber bool) *Token {
+	new_token := Token{
+		Value:    value,
+		IsNumber: isNumber,
+	}
+	return &new_token
+}
+
+func lastToken(tokens []Token) Token {
+	return tokens[len(tokens)-1]
+}
