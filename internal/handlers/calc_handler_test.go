@@ -12,14 +12,12 @@ import (
 
 func TestCalcHandler(t *testing.T) {
 	cases := []struct {
-		name        string
 		requestBody models.Request
 		wantStatus  int
 		wantOutput  *models.Response
 		wantError   *models.ErrorResponse
 	}{
 		{
-			name: "Valid expression",
 			requestBody: models.Request{
 				Expression: "2+2",
 			},
@@ -30,7 +28,6 @@ func TestCalcHandler(t *testing.T) {
 			wantError: nil,
 		},
 		{
-			name: "Complex valid expression",
 			requestBody: models.Request{
 				Expression: "(2+2)*2",
 			},
@@ -41,7 +38,6 @@ func TestCalcHandler(t *testing.T) {
 			wantError: nil,
 		},
 		{
-			name: "Invalid expression",
 			requestBody: models.Request{
 				Expression: "2++2",
 			},
@@ -52,7 +48,6 @@ func TestCalcHandler(t *testing.T) {
 			},
 		},
 		{
-			name: "Division by zero",
 			requestBody: models.Request{
 				Expression: "1/0",
 			},
@@ -65,7 +60,7 @@ func TestCalcHandler(t *testing.T) {
 	}
 
 	for _, tc := range cases {
-		t.Run(tc.name, func(t *testing.T) {
+		t.Run(tc.requestBody.Expression, func(t *testing.T) {
 			jsonBody, err := json.Marshal(tc.requestBody)
 			if err != nil {
 				t.Fatalf("Failed to marshal request body: %v", err)
