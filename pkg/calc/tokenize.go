@@ -6,8 +6,11 @@ import (
 
 func tokenize(expression string) ([]Token, error) {
 
-	var tokens []Token
-	var number string
+	var (
+		tokens []Token
+		number string
+		err    error
+	)
 
 	for i, symbol := range expression {
 		if unicode.IsSpace(symbol) {
@@ -23,24 +26,17 @@ func tokenize(expression string) ([]Token, error) {
 				tokens = append(tokens, *newToken(number, true))
 				number = ""
 			}
-			// next_symbol := expression[i+1]
-			// if !unicode.IsDigit(rune(next_symbol)) {
-			// 	tokens = append(tokens, *newToken(number, true))
-			// }
 			continue
 		}
-
-		// if number != "" {
-		// 	tokens = append(tokens, *newToken(number, true))
-		// 	number = ""
-		// }
 
 		switch string(symbol) {
 		case "+", "-", "/", "*", "(", ")":
 			tokens = append(tokens, *newToken(string(symbol), false))
 		default:
-			return nil, ErrorInvalidInput
+			err = ErrorInvalidInput
+			return nil, err
 		}
+
 	}
 
 	if number != "" {
@@ -48,5 +44,21 @@ func tokenize(expression string) ([]Token, error) {
 		number = ""
 	}
 
+	if !CheckMissingOperand(tokens) {
+		return nil, ErrorMissingOperand
+	}
+
 	return tokens, nil
+}
+
+func CheckMissingOperand(tokens []Token) bool {
+	for i, token := range tokens {
+		if i == len(tokens)-1 {
+			break
+		}
+		if token.IsNumber && tokens[i+1].IsNumber {
+			return false
+		}
+	}
+	return true
 }
