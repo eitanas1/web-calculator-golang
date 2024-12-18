@@ -2,9 +2,11 @@ package calc
 
 import (
 	"testing"
+
+	"github.com/bulbosaur/web-calculator-golang/pkg/calc/models"
 )
 
-func equalTokens(a, b []Token) bool {
+func equalTokens(a, b []models.Token) bool {
 	if len(a) != len(b) {
 		return false
 	}
@@ -19,22 +21,22 @@ func equalTokens(a, b []Token) bool {
 func TestTokenize(t *testing.T) {
 	cases := []struct {
 		expression string
-		wantOutput []Token
+		wantOutput []models.Token
 		wantError  error
 	}{
 		{
 			expression: "2+2",
-			wantOutput: []Token{{"2", true}, {"+", false}, {"2", true}},
+			wantOutput: []models.Token{{"2", true}, {"+", false}, {"2", true}},
 			wantError:  nil,
 		},
 		{
 			expression: "12 + 34",
-			wantOutput: []Token{{"12", true}, {"+", false}, {"34", true}},
+			wantOutput: []models.Token{{"12", true}, {"+", false}, {"34", true}},
 			wantError:  nil,
 		},
 		{
 			expression: "(5-3)*2",
-			wantOutput: []Token{
+			wantOutput: []models.Token{
 				{"(", false},
 				{"5", true},
 				{"-", false},
@@ -47,12 +49,12 @@ func TestTokenize(t *testing.T) {
 		},
 		{
 			expression: "42",
-			wantOutput: []Token{{"42", true}},
+			wantOutput: []models.Token{{"42", true}},
 			wantError:  nil,
 		},
 		{
 			expression: "2 * (3 + 4)",
-			wantOutput: []Token{
+			wantOutput: []models.Token{
 				{"2", true},
 				{"*", false},
 				{"(", false},
@@ -65,28 +67,28 @@ func TestTokenize(t *testing.T) {
 		},
 		{
 			expression: "",
-			wantOutput: []Token{},
+			wantOutput: []models.Token{},
 			wantError:  nil,
 		},
 		{
 			expression: "2 @ 3",
 			wantOutput: nil,
-			wantError:  ErrorInvalidInput,
+			wantError:  models.ErrorInvalidInput,
 		},
 		{
 			expression: "32 3",
 			wantOutput: nil,
-			wantError:  ErrorMissingOperand,
+			wantError:  models.ErrorMissingOperand,
 		},
 		{
 			expression: "2.5 + 3",
 			wantOutput: nil,
-			wantError:  ErrorInvalidInput,
+			wantError:  models.ErrorInvalidInput,
 		},
 		{
 			expression: "a + b",
 			wantOutput: nil,
-			wantError:  ErrorInvalidInput,
+			wantError:  models.ErrorInvalidInput,
 		},
 	}
 	for _, tc := range cases {

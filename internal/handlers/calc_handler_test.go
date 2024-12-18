@@ -75,7 +75,7 @@ func TestCalcHandler(t *testing.T) {
 			handler.ServeHTTP(rr, req)
 
 			if status := rr.Code; status != tc.wantStatus {
-				t.Errorf("Handler returned %v, but want %v", status, tc.wantStatus)
+				t.Errorf("CalcHandler returned %v, but want %v", status, tc.wantStatus)
 			}
 
 			if tc.wantOutput != nil {
@@ -86,7 +86,7 @@ func TestCalcHandler(t *testing.T) {
 				}
 
 				if response.Result != tc.wantOutput.Result {
-					t.Errorf("Handler returned %v, but want %v", response.Result, tc.wantOutput.Result)
+					t.Errorf("CalcHandler returned %v, but want %v", response.Result, tc.wantOutput.Result)
 				}
 			}
 
@@ -98,7 +98,7 @@ func TestCalcHandler(t *testing.T) {
 				}
 
 				if errorResponse.Error != tc.wantError.Error {
-					t.Errorf("Handler returned %v, but want %v", errorResponse.Error, tc.wantError.Error)
+					t.Errorf("CalcHandler returned %v, but want %v", errorResponse.Error, tc.wantError.Error)
 				}
 			}
 		})

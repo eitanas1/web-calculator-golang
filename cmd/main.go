@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/bulbosaur/web-calculator-golang/internal/application"
+	"github.com/bulbosaur/web-calculator-golang/internal/server"
 )
 
 func main() {
-	application.RunServer()
+	server.RunServer()
 }

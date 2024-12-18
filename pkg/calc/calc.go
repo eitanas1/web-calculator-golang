@@ -2,6 +2,8 @@ package calc
 
 import (
 	"strconv"
+
+	"github.com/bulbosaur/web-calculator-golang/pkg/calc/models"
 )
 
 func Calc(stringExpression string) (float64, error) {
@@ -11,7 +13,7 @@ func Calc(stringExpression string) (float64, error) {
 	}
 
 	if len(expression) == 0 {
-		return 0, ErrorEmptyExpression
+		return 0, models.ErrorEmptyExpression
 	}
 
 	priority := map[string]int{
@@ -22,9 +24,9 @@ func Calc(stringExpression string) (float64, error) {
 		"*": 3,
 		"/": 3,
 	}
-	stack := []Token{}
+	stack := []models.Token{}
 	stackResultPolish := make([]float64, 0)
-	reversePolishNotation := []Token{}
+	reversePolishNotation := []models.Token{}
 
 	for _, token := range expression {
 		if _, ok := priority[token.Value]; ok {
@@ -37,7 +39,7 @@ func Calc(stringExpression string) (float64, error) {
 				if len(stack) > 0 && lastToken(stack).Value == "(" {
 					stack = stack[:len(stack)-1]
 				} else {
-					return 0, ErrorUnclosedBracket
+					return 0, models.ErrorUnclosedBracket
 				}
 				continue
 			}
@@ -51,7 +53,7 @@ func Calc(stringExpression string) (float64, error) {
 		} else if token.IsNumber {
 			reversePolishNotation = append(reversePolishNotation, token)
 		} else {
-			return 0, ErrorInvalidInput
+			return 0, models.ErrorInvalidInput
 		}
 	}
 
@@ -68,7 +70,7 @@ func Calc(stringExpression string) (float64, error) {
 			stackResultPolish = append(stackResultPolish, floatNumber)
 		} else {
 			if len(stackResultPolish) < 2 {
-				return 0, ErrorInvalidInput
+				return 0, models.ErrorInvalidInput
 			}
 
 			num1 := stackResultPolish[len(stackResultPolish)-1]
@@ -84,11 +86,15 @@ func Calc(stringExpression string) (float64, error) {
 				stackResultPolish = append(stackResultPolish, num2*num1)
 			case "/":
 				if num1 == 0 {
-					return 0, ErrorDivisionByZero
+					return 0, models.ErrorDivisionByZero
 				}
 				stackResultPolish = append(stackResultPolish, num2/num1)
 			}
 		}
 	}
 	return stackResultPolish[0], nil
+}
+
+func lastToken(tokens []models.Token) models.Token {
+	return tokens[len(tokens)-1]
 }

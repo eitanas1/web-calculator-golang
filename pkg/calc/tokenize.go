@@ -2,12 +2,14 @@ package calc
 
 import (
 	"unicode"
+
+	"github.com/bulbosaur/web-calculator-golang/pkg/calc/models"
 )
 
-func tokenize(expression string) ([]Token, error) {
+func tokenize(expression string) ([]models.Token, error) {
 
 	var (
-		tokens []Token
+		tokens []models.Token
 		number string
 		err    error
 	)
@@ -15,7 +17,7 @@ func tokenize(expression string) ([]Token, error) {
 	for i, symbol := range expression {
 		if unicode.IsSpace(symbol) {
 			if number != "" {
-				tokens = append(tokens, *newToken(number, true))
+				tokens = append(tokens, *models.NewToken(number, true))
 			}
 			continue
 		}
@@ -23,7 +25,7 @@ func tokenize(expression string) ([]Token, error) {
 		if unicode.IsDigit(symbol) {
 			number += string(symbol)
 			if i+1 == len(expression) || !unicode.IsDigit(rune(expression[i+1])) {
-				tokens = append(tokens, *newToken(number, true))
+				tokens = append(tokens, *models.NewToken(number, true))
 				number = ""
 			}
 			continue
@@ -31,27 +33,27 @@ func tokenize(expression string) ([]Token, error) {
 
 		switch string(symbol) {
 		case "+", "-", "/", "*", "(", ")":
-			tokens = append(tokens, *newToken(string(symbol), false))
+			tokens = append(tokens, *models.NewToken(string(symbol), false))
 		default:
-			err = ErrorInvalidInput
+			err = models.ErrorInvalidInput
 			return nil, err
 		}
 
 	}
 
 	if number != "" {
-		tokens = append(tokens, *newToken(number, true))
+		tokens = append(tokens, *models.NewToken(number, true))
 		number = ""
 	}
 
 	if !CheckMissingOperand(tokens) {
-		return nil, ErrorMissingOperand
+		return nil, models.ErrorMissingOperand
 	}
 
 	return tokens, nil
 }
 
-func CheckMissingOperand(tokens []Token) bool {
+func CheckMissingOperand(tokens []models.Token) bool {
 	for i, token := range tokens {
 		if i == len(tokens)-1 {
 			break

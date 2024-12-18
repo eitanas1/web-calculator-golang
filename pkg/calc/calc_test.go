@@ -2,6 +2,8 @@ package calc
 
 import (
 	"testing"
+
+	"github.com/bulbosaur/web-calculator-golang/pkg/calc/models"
 )
 
 func TestCalc(t *testing.T) {
@@ -38,17 +40,17 @@ func TestCalc(t *testing.T) {
 		{
 			expression: "",
 			wantValue:  0,
-			wantError:  ErrorEmptyExpression,
+			wantError:  models.ErrorEmptyExpression,
 		},
 		{
 			expression: "5/0",
 			wantValue:  0,
-			wantError:  ErrorDivisionByZero,
+			wantError:  models.ErrorDivisionByZero,
 		},
 		{
 			expression: "2+apple",
 			wantValue:  0,
-			wantError:  ErrorInvalidInput,
+			wantError:  models.ErrorInvalidInput,
 		},
 		{
 			expression: "2 + 2 * 3",
@@ -58,7 +60,7 @@ func TestCalc(t *testing.T) {
 		{
 			expression: "32 5",
 			wantValue:  0,
-			wantError:  ErrorInvalidInput,
+			wantError:  models.ErrorMissingOperand,
 		},
 		{
 			expression: "((2+3)*2)",
@@ -68,7 +70,7 @@ func TestCalc(t *testing.T) {
 		{
 			expression: "2++2",
 			wantValue:  0,
-			wantError:  ErrorInvalidInput,
+			wantError:  models.ErrorInvalidInput,
 		},
 	}
 
