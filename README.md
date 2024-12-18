@@ -22,8 +22,8 @@ Web-calculator представляет из себя веб-сервис, по�
 1. Клонирование репозитория
 
 ```bash
-git clone https://github.com/username/calculator
-cd calculator
+git clone https://github.com/bulbosaur/web-calculator-golang
+cd web-calculator-golang
 ```
 2. Установка зависимостей
 ```bach
