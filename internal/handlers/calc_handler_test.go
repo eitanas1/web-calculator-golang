@@ -117,8 +117,8 @@ func TestCalcHandlerInvalidJSON(t *testing.T) {
 	handler := http.HandlerFunc(CalcHandler)
 	handler.ServeHTTP(rr, req)
 
-	if status := rr.Code; status != http.StatusInternalServerError {
-		t.Errorf("Handler returned %v, but want %v", status, http.StatusInternalServerError)
+	if status := rr.Code; status != http.StatusBadRequest {
+		t.Errorf("Handler returned %v, but want %v", status, http.StatusBadRequest)
 	}
 
 	var errorResponse models.ErrorResponse
