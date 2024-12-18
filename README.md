@@ -25,13 +25,9 @@ Web-calculator представляет из себя веб-сервис, по�
 git clone https://github.com/bulbosaur/web-calculator-golang
 cd web-calculator-golang
 ```
-2. Установка зависимостей
-```bach
-go mod init calculator
-go mod tidy
-```
 
-3. Запуск сервера
+2. Запуск сервера
+   
 ```bach
 go run cmd/main.go
 ```
