@@ -44,7 +44,8 @@ func TestCalcHandler(t *testing.T) {
 			wantStatus: http.StatusUnprocessableEntity,
 			wantOutput: nil,
 			wantError: &models.ErrorResponse{
-				Error: "Expression is not valid",
+				Error:        "Expression is not valid",
+				ErrorMessage: models.ErrorInvalidInput.Error(),
 			},
 		},
 		{
@@ -54,7 +55,8 @@ func TestCalcHandler(t *testing.T) {
 			wantStatus: http.StatusUnprocessableEntity,
 			wantOutput: nil,
 			wantError: &models.ErrorResponse{
-				Error: "Expression is not valid",
+				Error:        "Expression is not valid",
+				ErrorMessage: models.ErrorDivisionByZero.Error(),
 			},
 		},
 	}
@@ -75,7 +77,7 @@ func TestCalcHandler(t *testing.T) {
 			handler.ServeHTTP(rr, req)
 
 			if status := rr.Code; status != tc.wantStatus {
-				t.Errorf("CalcHandler returned %v, but want %v", status, tc.wantStatus)
+				t.Errorf("%v: CalcHandler returned %v, but want %v", tc.requestBody.Expression, status, tc.wantStatus)
 			}
 
 			if tc.wantOutput != nil {
@@ -86,7 +88,7 @@ func TestCalcHandler(t *testing.T) {
 				}
 
 				if response.Result != tc.wantOutput.Result {
-					t.Errorf("CalcHandler returned %v, but want %v", response.Result, tc.wantOutput.Result)
+					t.Errorf("%v: CalcHandler returned %v, but want %v", tc.requestBody.Expression, response.Result, tc.wantOutput.Result)
 				}
 			}
 

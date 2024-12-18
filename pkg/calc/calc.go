@@ -3,7 +3,7 @@ package calc
 import (
 	"strconv"
 
-	"github.com/bulbosaur/web-calculator-golang/pkg/calc/models"
+	"github.com/bulbosaur/web-calculator-golang/internal/models"
 )
 
 func Calc(stringExpression string) (float64, error) {

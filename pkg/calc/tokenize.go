@@ -3,7 +3,7 @@ package calc
 import (
 	"unicode"
 
-	"github.com/bulbosaur/web-calculator-golang/pkg/calc/models"
+	"github.com/bulbosaur/web-calculator-golang/internal/models"
 )
 
 func tokenize(expression string) ([]models.Token, error) {

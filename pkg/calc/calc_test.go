@@ -3,7 +3,7 @@ package calc
 import (
 	"testing"
 
-	"github.com/bulbosaur/web-calculator-golang/pkg/calc/models"
+	"github.com/bulbosaur/web-calculator-golang/internal/models"
 )
 
 func TestCalc(t *testing.T) {
