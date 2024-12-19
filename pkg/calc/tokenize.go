@@ -50,6 +50,10 @@ func tokenize(expression string) ([]models.Token, error) {
 		return nil, models.ErrorMissingOperand
 	}
 
+	if !CheckEmptyBrackets(tokens) {
+		return nil, models.ErrorEmptyBrackets
+	}
+
 	return tokens, nil
 }
 
@@ -59,6 +63,18 @@ func CheckMissingOperand(tokens []models.Token) bool {
 			break
 		}
 		if token.IsNumber && tokens[i+1].IsNumber {
+			return false
+		}
+	}
+	return true
+}
+
+func CheckEmptyBrackets(tokens []models.Token) bool {
+	for i, token := range tokens {
+		if i == len(tokens)-1 {
+			break
+		}
+		if token.Value == "(" && tokens[i+1].Value == ")" {
 			return false
 		}
 	}

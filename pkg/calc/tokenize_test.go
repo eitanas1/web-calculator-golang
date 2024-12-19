@@ -86,6 +86,11 @@ func TestTokenize(t *testing.T) {
 			wantError:  models.ErrorInvalidCharacter,
 		},
 		{
+			expression: "()",
+			wantOutput: nil,
+			wantError:  models.ErrorEmptyBrackets,
+		},
+		{
 			expression: "a + b",
 			wantOutput: nil,
 			wantError:  models.ErrorInvalidCharacter,

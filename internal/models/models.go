@@ -4,6 +4,7 @@ import "errors"
 
 var (
 	ErrorDivisionByZero     = errors.New("division by zero is not allowed")
+	ErrorEmptyBrackets      = errors.New("the brackets are empty")
 	ErrorEmptyExpression    = errors.New("expression is empty")
 	ErrorInvalidCharacter   = errors.New("invalid characters in expression")
 	ErrorInvalidInput       = errors.New("expression is not valid")
