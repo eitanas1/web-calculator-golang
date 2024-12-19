@@ -5,15 +5,22 @@ import (
 )
 
 type Config struct {
-	Addr string
+	Host string
+	Port string
 }
 
 func GettingConfig() *Config {
 	config := new(Config)
-	address := os.Getenv("PORT")
-	config.Addr = address
-	if config.Addr == "" {
-		config.Addr = "8080"
+
+	config.Host = os.Getenv("HOST")
+	if config.Host == "" {
+		config.Host = "localhost"
 	}
+
+	config.Port = os.Getenv("PORT")
+	if config.Port == "" {
+		config.Port = "8080"
+	}
+
 	return config
 }

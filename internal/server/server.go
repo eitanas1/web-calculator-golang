@@ -1,6 +1,7 @@
 package server
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -10,12 +11,14 @@ import (
 
 func RunServer() {
 	config := config.GettingConfig()
-	address := ":" + config.Addr
+	addr := fmt.Sprintf("%s:%s", config.Host, config.Port)
 
 	http.HandleFunc("/api/v1/calculate", handlers.CalcHandler)
-	http.HandleFunc("/coffe", handlers.CoffeeHandler)
+	http.HandleFunc("/coffee", handlers.CoffeeHandler)
 
-	err := http.ListenAndServe(address, nil)
+	log.Printf("Server starting on %s", addr)
+	err := http.ListenAndServe(addr, nil)
+
 	if err != nil {
 		log.Fatal("Internal server error")
 	}
