@@ -126,7 +126,7 @@ func TestCalcHandlerInvalidJSON(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Failed to decode error response body: %v", err)
 	}
-	wantError := "Internal server error"
+	wantError := "Bad request"
 	if errorResponse.Error != wantError {
 		t.Errorf("Handler returned %v, but want %v", errorResponse.Error, wantError)
 	}
