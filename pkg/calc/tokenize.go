@@ -35,7 +35,7 @@ func tokenize(expression string) ([]models.Token, error) {
 		case "+", "-", "/", "*", "(", ")":
 			tokens = append(tokens, *models.NewToken(string(symbol), false))
 		default:
-			err = models.ErrorInvalidInput
+			err = models.ErrorInvalidCharacter
 			return nil, err
 		}
 

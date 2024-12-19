@@ -5,6 +5,7 @@ import "errors"
 var (
 	ErrorDivisionByZero     = errors.New("division by zero is not allowed")
 	ErrorEmptyExpression    = errors.New("expression is empty")
+	ErrorInvalidCharacter   = errors.New("invalid characters in expression")
 	ErrorInvalidInput       = errors.New("expression is not valid")
 	ErrorInvalidOperand     = errors.New("an invalid operand")
 	ErrorInvalidRequestBody = errors.New("invalid request body")

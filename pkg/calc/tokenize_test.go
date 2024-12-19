@@ -88,7 +88,7 @@ func TestTokenize(t *testing.T) {
 		{
 			expression: "a + b",
 			wantOutput: nil,
-			wantError:  models.ErrorInvalidInput,
+			wantError:  models.ErrorInvalidCharacter,
 		},
 	}
 	for _, tc := range cases {

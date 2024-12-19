@@ -1,7 +1,7 @@
 
 # web-calculator
 
-Web-calculator представляет из себя веб-сервис, позволяющий пользователю отправлять cURL запросы с арифметическими выражениями и получать в ответ его результат.
+Web-calculator представляет из себя веб-сервис, при помощи которого пользователь может отправить арифметическое выражение по HTTP и получить в ответ его результат.
 
 
 
@@ -50,11 +50,49 @@ go run cmd/main.go
 |--------------|---------------|------------|
 | ```/api/v1/calculate``` | json ```{"result":"результат выражения"}``` | 200 |
 | ```/coffee``` | ```I'm a teapot``` | 418 |
+| ```/api/v1/tea``` | ```404 page not found``` | 404 |
 
 ### Коды ответов
+
 - 200 - Успешный запрос
 - 400 - Некорректный запрос
 - 403 - Доступ запрещен
 - 404 - Ресурс не найден
 - 422 - Некорректное выражение (например, буква английского алфавита вместо цифры)
 - 500 - Внутренняя ошибка сервера
+
+### Примеры работы
+
+Для отправки POST запросов удобнее всего использовать программу [Postman](https://www.postman.com/downloads/).
+
+1. StatusOK 200
+```bash
+curl --location 'localhost/api/v1/calculate' \
+--header 'Content-Type: application/json' \
+--data '{
+  "expression": "42 + 5 * 2"
+}'
+
+# {"result":52}
+```
+
+```bash
+curl --location 'localhost/api/v1/calculate' \
+--header 'Content-Type: application/json' \
+--data '{
+  "expression": "6-8"
+}'
+
+# {"result":-2}
+```
+
+5. Unprocessable Entity 422
+```bash
+curl --location 'localhost/api/v1/calculate' \
+--header 'Content-Type: application/json' \
+--data '{
+  "expression": "cat + 100500"
+}'
+
+#{"error":"Expression is not valid","error_message":"invalid characters in expression"}
+```
