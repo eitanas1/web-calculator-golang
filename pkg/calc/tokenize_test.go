@@ -73,7 +73,7 @@ func TestTokenize(t *testing.T) {
 		{
 			expression: "2 @ 3",
 			wantOutput: nil,
-			wantError:  models.ErrorInvalidInput,
+			wantError:  models.ErrorInvalidCharacter,
 		},
 		{
 			expression: "32 3",
@@ -83,7 +83,7 @@ func TestTokenize(t *testing.T) {
 		{
 			expression: "2.5 + 3",
 			wantOutput: nil,
-			wantError:  models.ErrorInvalidInput,
+			wantError:  models.ErrorInvalidCharacter,
 		},
 		{
 			expression: "a + b",
