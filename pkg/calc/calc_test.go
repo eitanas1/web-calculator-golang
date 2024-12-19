@@ -50,7 +50,7 @@ func TestCalc(t *testing.T) {
 		{
 			expression: "2+apple",
 			wantValue:  0,
-			wantError:  models.ErrorInvalidInput,
+			wantError:  models.ErrorInvalidCharacter,
 		},
 		{
 			expression: "2 + 2 * 3",

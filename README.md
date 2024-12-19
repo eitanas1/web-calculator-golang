@@ -94,5 +94,5 @@ curl --location 'localhost/api/v1/calculate' \
   "expression": "cat + 100500"
 }'
 
-#{"error":"Expression is not valid","error_message":"invalid characters in expression"}
+# {"error":"Expression is not valid","error_message":"invalid characters in expression"}
 ```
