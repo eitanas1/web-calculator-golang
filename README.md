@@ -47,7 +47,7 @@ go run cmd/main.go
 Базовый URL по умолчанию: ```http://localhost:8080```
 
 | API endpoint | Тело запроса | Ответ сервера | Код ответа |
-|--------------|---------------|------------|
+|--------------|--------------|---------------|------------|
 | ```/api/v1/calculate``` | ```{"expression": "2 * 2"}``` | ```{"result":"4"}``` | 200 |
 | ```/api/v1/calculate``` | ```"expression": "2 * 2"``` | ```{"error":"Bad request","error_message":"invalid request body"}``` | 400 |
 | ```/coffee``` | | ```I'm a teapot``` | 418 |
@@ -113,7 +113,7 @@ curl --location 'localhost/api/v1/calculate' \
 curl --location 'localhost/api/v1/calculate' \
 --header 'Content-Type: application/json' \
 --data '{
-  "expression": "cat + 100500"
+  "expression": "()"
 }'
 
 # {"error":"Expression is not valid","error_message":"the brackets are empty"}
