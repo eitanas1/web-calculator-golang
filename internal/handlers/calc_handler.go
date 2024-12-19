@@ -16,7 +16,7 @@ func CalcHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(models.ErrorResponse{
-			Error:        "Internal server error",
+			Error:        "Bad request",
 			ErrorMessage: models.ErrorInvalidRequestBody.Error(),
 		})
 		return
