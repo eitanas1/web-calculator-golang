@@ -67,7 +67,7 @@ go run cmd/main.go
 
 1. StatusOK 200
 ```bash
-curl --location 'localhost/api/v1/calculate' \
+curl --location 'localhost:8080/api/v1/calculate' \
 --header 'Content-Type: application/json' \
 --data '{
   "expression": "42 + 5 * 2"
@@ -77,7 +77,7 @@ curl --location 'localhost/api/v1/calculate' \
 ```
 
 ```bash
-curl --location 'localhost/api/v1/calculate' \
+curl --location 'localhost:8080/api/v1/calculate' \
 --header 'Content-Type: application/json' \
 --data '{
   "expression": "6-8"
@@ -87,7 +87,7 @@ curl --location 'localhost/api/v1/calculate' \
 ```
 
 ```bash
-curl --location 'localhost/api/v1/calculate' \
+curl --location 'localhost:8080/api/v1/calculate' \
 --header 'Content-Type: application/json' \
 --data '{
   "expression": "123(3/2)"
@@ -110,7 +110,7 @@ curl --location 'localhost/api/v1/calculate' \
 
 3. Unprocessable Entity 422
 ```bash
-curl --location 'localhost/api/v1/calculate' \
+curl --location 'localhost:8080/api/v1/calculate' \
 --header 'Content-Type: application/json' \
 --data '{
   "expression": "cat + 100500"
@@ -120,7 +120,7 @@ curl --location 'localhost/api/v1/calculate' \
 ```
 
 ```bash
-curl --location 'localhost/api/v1/calculate' \
+curl --location 'localhost:8080/api/v1/calculate' \
 --header 'Content-Type: application/json' \
 --data '{
   "expression": "()"
@@ -130,7 +130,7 @@ curl --location 'localhost/api/v1/calculate' \
 ```
 
 ```bash
-curl --location 'localhost/api/v1/calculate' \
+curl --location 'localhost:8080/api/v1/calculate' \
 --header 'Content-Type: application/json' \
 --data '{
   "expression": "1/0"
