@@ -90,7 +90,7 @@ curl --location 'localhost/api/v1/calculate' \
 curl --location 'localhost/api/v1/calculate' \
 --header 'Content-Type: application/json' \
 --data '{
-  "expression": "123 (3/2)"
+  "expression": "123(3/2)"
 }'
 
 # {"result":184.5}
@@ -108,7 +108,7 @@ curl --location 'localhost/api/v1/calculate' \
 # {"error":"Bad request","error_message":"invalid request body"}
 ```
 
-5. Unprocessable Entity 422
+3. Unprocessable Entity 422
 ```bash
 curl --location 'localhost/api/v1/calculate' \
 --header 'Content-Type: application/json' \
@@ -127,4 +127,14 @@ curl --location 'localhost/api/v1/calculate' \
 }'
 
 # {"error":"Expression is not valid","error_message":"the brackets are empty"}
+```
+
+```bash
+curl --location 'localhost/api/v1/calculate' \
+--header 'Content-Type: application/json' \
+--data '{
+  "expression": "1/0"
+}'
+
+# {"error":"Expression is not valid","error_message":"division by zero is not allowed"}
 ```
