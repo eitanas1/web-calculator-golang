@@ -13,7 +13,7 @@ func RunServer() {
 	config := config.GettingConfig()
 	addr := fmt.Sprintf("%s:%s", config.Host, config.Port)
 
-	http.HandleFunc("/api/v1/calculate", handlers.CalcHandler)
+	http.HandleFunc("POST /api/v1/calculate", handlers.CalcHandler)
 	http.HandleFunc("/coffee", handlers.CoffeeHandler)
 
 	log.Printf("Server starting on %s", addr)
