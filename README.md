@@ -51,8 +51,8 @@ go run cmd/main.go
 | ```/api/v1/calculate``` | ```POST``` | ```{"expression": "2 * 2"}``` | ```{"result":"4"}``` | 200 |
 | ```/api/v1/calculate``` | ```POST``` | ```"expression": "2 * 2"``` | ```{"error":"Bad request","error_message":"invalid request body"}``` | 400 |
 | ```/api/v1/calculate``` | ```GET``` | ```{"expression": "2 * 2"}``` | ```Method Not Allowed``` | 405 |
-| ```/coffee``` | | | | ```I'm a teapot``` | 418 |
-| ```/api/v1/tea``` | | | | ```404 page not found``` | 404 |
+| ```/coffee``` | | | ```I'm a teapot``` | 418 |
+| ```/api/v1/tea``` | | | ```404 page not found``` | 404 |
 
 ### Коды ответов
 
