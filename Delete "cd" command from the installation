@@ -25,10 +25,9 @@ Web-calculator представляет из себя веб-сервис, пр�
 git clone https://github.com/bulbosaur/web-calculator-golang
 ```
 
-2. Запуск сервера
+2. Запуск сервера из репозитория проекта
    
 ```bash
-cd web-calculator-golang
 go run cmd/main.go
 ```
 
