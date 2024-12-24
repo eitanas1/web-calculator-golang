@@ -177,3 +177,7 @@ curl 'localhost:8080/api/v1/calculate' \
 
 # {"error":"Expression is not valid","error_message":"missing operand"}
 ```
+
+## Контактная информация
+
+Если у вас появились вопросы по поводу проекта, пожалуйста, оставьте issue или обратитесь ко мне напрямую: ```@bulbosaurus``` (тг)
