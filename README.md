@@ -1,45 +1,40 @@
 
-# web-calculator
+# Web-calculator | [English](README.md) | [Русский](README.ru.md)
 
-Web-calculator представляет из себя веб-сервис, при помощи которого пользователь может отправить арифметическое выражение по HTTP и получить в ответ его результат.
+web-calculator is a web service that allows users to send arithmetic expressions via HTTP and receive their results.
 
+## Functionality
 
+- Supports addition, subtraction, multiplication, division operations, and expressions in parentheses
+- Expressions can be entered with or without spaces between numbers and operands
+- The calculator accepts positive integers as input
 
-## Функционал
+## Requirements
 
-- Поддерживаются операции сложения, вычитания, умножения и деления, а также выражения в скобках
-- Выражение может вводиться как с пробелами между числом и операндом, так и без
-- Калькулятор принимает на вход положительные целые числа
+- Go version 1.22 or newer
 
+## Installation
 
-## Требования
-
-- Go версии ```1.22``` или новее
-
-
-## Установка
-
-1. Клонирование репозитория
+1. Clone the repository
 
 ```bash
 git clone https://github.com/bulbosaur/web-calculator-golang
 ```
 
-2. Запуск сервера из репозитория проекта
+2. Run the server from the project repository
    
-```bash
+``` bash
 go run cmd/main.go
 ```
 
+## Environment Variables
 
-## Переменные окружения
+| Variable | Description | Default Value |
+|----------|----------------|----------------|
+| PORT | Server port | 8080 |
+| HOST | Server host | localhost |
 
-| Переменная | Описание | Значение по умолчанию |
-|------------|----------|-----------------------|
-| ```PORT``` | Порт для запуска сервера | ```8080``` |
-| ```HOST``` | Хост для запуска сервера | ```localhost``` |
-
-Чтобы изменить значения ```PORT``` и ```HOST```, перед запуском сервера необходимо установить их вручную в командной строке / терминале.
+To change PORT and HOST values, you need to set them manually in the command line / terminal before starting the server.
 
 ### Windows
 
@@ -48,7 +43,7 @@ set PORT=3000
 set HOST=0.0.0.0
 ```
 
-Проверка установленных переменных:
+Check set variables:
 
 ```bash
 echo %PORT%
@@ -62,39 +57,40 @@ export PORT=3000
 export HOST=0.0.0.0
 ```
 
-Проверка установленных переменных:
+Check set variables:
 
-```bash
+``` bash
 echo $PORT
 echo $HOST
 ```
 
 ## API
 
-Базовый URL по умолчанию: ```http://localhost:8080```
+Default base URL: http://localhost:8080
 
-| API endpoint | Метод | Тело запроса | Ответ сервера | Код ответа |
-|--------------|-------|--------------|---------------|------------|
-| ```/api/v1/calculate``` | ```POST``` | ```{"expression": "2 * 2"}``` | ```{"result":"4"}``` | 200 |
-| ```/api/v1/calculate``` | ```POST``` | ```"expression": "2 * 2"``` | ```{"error":"Bad request","error_message":"invalid request body"}``` | 400 |
-| ```/api/v1/calculate``` | ```GET``` | ```{"expression": "2 * 2"}``` | ```Method Not Allowed``` | 405 |
-| ```/coffee``` | | | ```I'm a teapot``` | 418 |
-| ```/api/v1/tea``` | | | ```404 page not found``` | 404 |
+| API endpoint | Method | Request Body | Server Response | Response Code |
+|--------------|--------|--------------|-----------------|---------------|
+| /api/v1/calculate | POST | {"expression": "2 * 2"} | {"result":"4"} | 200 |
+| /api/v1/calculate | POST | "expression": "2 * 2" | {"error":"Bad request","error_message":"invalid request body"} | 400 |
+| /api/v1/calculate | GET | {"expression": "2 * 2"} | Method Not Allowed | 405 |
+| /coffee | | | I'm a teapot | 418 |
+| /api/v1/tea | | | 404 page not found | 404 |
 
-### Коды ответов
+### Response Codes
 
-- 200 - Успешный запрос
-- 400 - Некорректный запрос
-- 404 - Ресурс не найден
-- 405 - Метод не поддерживается 
-- 422 - Некорректное выражение (например, буква английского алфавита вместо цифры)
-- 500 - Внутренняя ошибка сервера
+- 200 - Successful request
+- 400 - Bad request
+- 404 - Resource not found
+- 405 - Method not allowed
+- 422 - Invalid expression (e.g., English letter instead of a number)
+- 500 - Internal server error
 
-### Примеры работы
+### Usage Examples
 
-Для отправки POST запросов удобнее всего использовать программу [Postman](https://www.postman.com/downloads/).
+For sending POST requests, it's most convenient to use [Postman](https://www.postman.com/downloads/).
 
 1. StatusOK 200
+
 ```bash
 curl 'localhost:8080/api/v1/calculate' \
 --header 'Content-Type: application/json' \
@@ -138,6 +134,7 @@ curl 'localhost/api/v1/calculate' \
 ```
 
 3. Unprocessable Entity 422
+
 ```bash
 curl 'localhost:8080/api/v1/calculate' \
 --header 'Content-Type: application/json' \
@@ -177,7 +174,3 @@ curl 'localhost:8080/api/v1/calculate' \
 
 # {"error":"Expression is not valid","error_message":"missing operand"}
 ```
-
-## Контактная информация
-
-Если у вас появились вопросы по поводу проекта, пожалуйста, оставьте issue или обратитесь ко мне напрямую: ```@bulbosaurus``` (тг)
