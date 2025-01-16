@@ -4,7 +4,11 @@ pipeline {
         stage('Build') {
             steps {
                 // Build the Go application
-                sh 'go build -v cmd/main.go'
+                sh "'"
+                    go build -v cmd/main.go
+                    mv main web-calculator
+                    ls
+                "'"
             }
         }
         stage('Test') {
