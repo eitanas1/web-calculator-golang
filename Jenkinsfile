@@ -7,7 +7,6 @@ pipeline {
                 sh 'ls -R'
                 sh 'go build -v cmd/main.go'
                 sh 'ls -R'
-                sh 'cat main'
                 sh './main'
             }
         }
