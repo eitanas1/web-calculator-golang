@@ -5,9 +5,9 @@ pipeline {
             steps {
                 // Build the Go application
                 sh 'ls -R'
-                sh 'go build -v cmd/main.go -o web-calculator'
+                sh 'go build -v cmd/main.go'
                 sh 'ls -R'
-                sh './web-calculator'
+                sh './main'
             }
         }
         stage('Test') {
