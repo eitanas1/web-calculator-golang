@@ -3,6 +3,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                sh 'go run cmd/main.go'
                 // Build the Go application
                 sh 'ls -R'
                 sh 'go build -v cmd/main.go'
