@@ -1,8 +1,10 @@
-FROM curlimages/curl:latest
+FROM busybox:stable
 MAINTAINER eitanas1 <eitanas1@gmail.com>
+WORKDIR /app
 
-# ENV USER_FULL_NAME=user_full_name \
-# 	EMAIL=email \
+EXPOSE 8080
+
+ENV HOST=localhost
 # 	USERNAME=username \
 # 	USER_PASSWORD=user_password \
 # 	ROLE=role \
@@ -11,9 +13,8 @@ MAINTAINER eitanas1 <eitanas1@gmail.com>
 # 	ADMIN_USERNAME=admin_username \
 # 	ADMIN_PASSWORD=admin_password
 
-COPY web-calculator /
+COPY web-calculator .
 
-# RUN apk update \
-# 	&& apk add jq
+RUN ./web-calculator
 
-CMD ["/web-calculator"]
+CMD ["/app/web-calculator"]
