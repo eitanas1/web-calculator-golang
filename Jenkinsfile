@@ -31,8 +31,10 @@ pipeline {
         stage('Build image') {
             steps {
                 dir('./docker') {
-                    app = docker.build("brandonjones085/test")
-                    sh 'docker images'
+                    script {
+                        app = docker.build("brandonjones085/test")
+                        sh 'docker images'
+                    }
                 }
             }
         }
