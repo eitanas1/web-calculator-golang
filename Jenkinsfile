@@ -1,14 +1,18 @@
 pipeline {
     agent any
+    options {
+        // Timeout counter starts AFTER agent is allocated
+        timeout(time: 300, unit: 'SECONDS')
+    }
     stages {
         stage('Build') {
             steps {
                 // Build the Go application
-                script {
+                sh """
                     go build -v cmd/main.go
                     mv main web-calculator
                     ls
-                }
+                """
             }
         }
         stage('Test') {
