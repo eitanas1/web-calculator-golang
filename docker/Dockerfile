@@ -11,7 +11,7 @@ MAINTAINER eitanas1 <eitanas1@gmail.com>
 # 	ADMIN_USERNAME=admin_username \
 # 	ADMIN_PASSWORD=admin_password
 
-COPY ../scripts/web-calculator /
+COPY web-calculator /
 
 # RUN apk update \
 # 	&& apk add jq
