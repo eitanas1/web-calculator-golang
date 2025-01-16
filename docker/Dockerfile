@@ -15,6 +15,6 @@ ENV HOST=localhost
 
 COPY web-calculator .
 
-RUN ./web-calculator
+#RUN ./web-calculator
 
 CMD ["/app/web-calculator"]
