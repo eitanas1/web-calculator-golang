@@ -4,7 +4,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Build the Go application
-                sh 'go build -o web-calculator'
+                sh 'go build ./...'
             }
         }
         stage('Test') {
