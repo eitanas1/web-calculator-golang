@@ -29,9 +29,11 @@ pipeline {
             }
         }
         stage('Build image') {
-            dir('./docker') {
-                app = docker.build("brandonjones085/test")
-                sh 'docker images'
+            steps {
+                dir('./docker') {
+                    app = docker.build("brandonjones085/test")
+                    sh 'docker images'
+                }
             }
         }
     }
