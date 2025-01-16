@@ -3,12 +3,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'sudo go run cmd/main.go'
                 // Build the Go application
-                sh 'ls -R'
                 sh 'go build -v cmd/main.go'
-                sh 'ls -R'
-                sh './main'
             }
         }
         stage('Test') {
@@ -17,10 +13,18 @@ pipeline {
                 sh 'go test -v ./...'
             }
         }
+        stage('Build Docker Image') {
+            steps {
+                // Build the Docker image
+                dir('./docker') {
+                    sh 'docker build -t web-calculator:${BUILD_NUMBER} .'
+                }
+            }
+        }
     }
-    /*post {
+    post {
         always {
             cleanWs()
         }
-    }*/
+    }
 }
