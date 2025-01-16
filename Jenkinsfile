@@ -4,9 +4,9 @@ pipeline {
         stage('Build') {
             steps {
                 // Build the Go application
-                sh 'ls -r'
-                sh 'go build -v cmd/main.go'
-                sh 'ls -r'
+                sh 'ls -R'
+                sh 'go build -v ./...'
+                sh 'ls -R'
             }
         }
         stage('Test') {
