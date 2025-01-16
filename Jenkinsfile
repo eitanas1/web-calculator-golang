@@ -10,8 +10,9 @@ pipeline {
                 // Build the Go application
                 sh """
                     go build -v cmd/main.go
-                    mv main web-calculator
-                    ls
+                    mkdir scripts
+                    mv main scripts/web-calculator
+                    ls -R
                 """
             }
         }
