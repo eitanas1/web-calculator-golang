@@ -42,15 +42,22 @@ pipeline {
                 dir('./docker') {
                     script {
                         dockerImage = docker.build("${registry}:${BUILD_NUMBER}")
-                        aqua containerRuntime: 'docker', customFlags: '', hideBase: false, hostedImage: '', localImage: "${registry}:${BUILD_NUMBER}", localToken: '', locationType: 'local', notCompliesCmd: '', onDisallowed: 'ignore', policies: '', register: false, registry: '', runtimeDirectory: '', scannerPath: '', showNegligible: false, tarFilePath: ''
                     }
                 }
             }
         }
-        
-        stage('Deploy Image') {
+
+        stage('Dependency-Check') {
             steps {
-                // Deploy the Docker image
+                // Scan image for vulnerabilities
+                //aqua containerRuntime: 'docker', customFlags: '', hideBase: false, hostedImage: '', localImage: "${registry}:${BUILD_NUMBER}", localToken: '', locationType: 'local', notCompliesCmd: '', onDisallowed: 'ignore', policies: '', register: false, registry: '', runtimeDirectory: '', scannerPath: '', showNegligible: false, tarFilePath: ''
+                aquaMicroscanner imageName: "${registry}:${BUILD_NUMBER}", notCompliesCmd: '', onDisallowed: 'ignore', outputFormat: 'html'
+            }
+        }
+        
+        stage('Publish Image') {
+            steps {
+                // Publish the Docker image
                 script {
                     docker.withRegistry('', registryCredential) {
                         dockerImage.push("${BUILD_NUMBER}")
