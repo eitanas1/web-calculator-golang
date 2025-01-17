@@ -6,8 +6,8 @@ EXPOSE 8080
 
 ENV HOST=localhost \
     LOG_LEVEL=INFO \
-  	USERNAME=username \
-  	USER_PASSWORD=user_password
+    USERNAME=username \
+    USER_PASSWORD=user_password
 
 COPY web-calculator .
 
