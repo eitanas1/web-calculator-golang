@@ -25,14 +25,6 @@ pipeline {
                 sh 'go test -v ./...'
             }
         }
-        /*stage('Build Docker Image') {
-            steps {
-                // Build the Docker image
-                dir('./docker') {
-                    sh 'docker build -t web-calculator:${BUILD_NUMBER} .'
-                }
-            }
-        }*/
         stage('Build Image') {
             steps {
                 // Build the Docker image
@@ -49,6 +41,8 @@ pipeline {
                 // Deploy the Docker image
                 script {
                     docker.withRegistry('', registryCredential) {
+                        dockerImage.push()
+                        dockerImage.tag("latest")
                         dockerImage.push()
                     }
                 }
