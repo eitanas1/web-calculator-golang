@@ -19,12 +19,22 @@ pipeline {
                 """
             }
         }
+        
         stage('Test App') {
             steps {
                 // Run Go unit tests
                 sh 'go test -v ./...'
             }
         }
+        
+        stage('Dependency-Check') {
+            steps {
+                // Invoke OWASP Dependency-Check
+                dependencyCheck additionalArguments: '--project WORKSPACE', odcInstallation: 'SCA'
+                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+            }
+        }
+        
         stage('Build Image') {
             steps {
                 // Build the Docker image
@@ -35,6 +45,7 @@ pipeline {
                 }
             }
         }
+        
         stage('Deploy Image') {
             steps {
                 // Deploy the Docker image
@@ -51,7 +62,7 @@ pipeline {
         always {
             cleanWs()
             sh "docker images"
-            sh "docker rmi -f ${registry}:${BUILD_NUMBER} ${registry}:latest ${registry}:47"
+            sh "docker rmi -f ${registry}:${BUILD_NUMBER} ${registry}:latest"
             // sh 'docker rmi $(docker images -aq)'
             sh "docker images"
         }
