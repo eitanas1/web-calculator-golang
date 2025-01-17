@@ -30,7 +30,8 @@ pipeline {
                 // Build the Docker image
                 dir('./docker') {
                     script {
-                        dockerImage = docker.build("${registry}:${BUILD_NUMBER}")
+                        dockerImage = docker.build("${registry}")
+                        dockerImage.tag(["latest",${BUILD_NUMBER}])
                         sh 'docker images'
                     }
                 }
@@ -41,8 +42,6 @@ pipeline {
                 // Deploy the Docker image
                 script {
                     docker.withRegistry('', registryCredential) {
-                        dockerImage.push()
-                        dockerImage.tag("latest")
                         dockerImage.push()
                     }
                 }
