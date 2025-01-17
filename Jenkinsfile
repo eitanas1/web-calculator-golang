@@ -31,8 +31,6 @@ pipeline {
                 dir('./docker') {
                     script {
                         dockerImage = docker.build("${registry}")
-                        dockerImage.tag(["latest","${BUILD_NUMBER}"])
-                        sh 'docker images'
                     }
                 }
             }
@@ -42,7 +40,8 @@ pipeline {
                 // Deploy the Docker image
                 script {
                     docker.withRegistry('', registryCredential) {
-                        dockerImage.push()
+                        dockerImage.push("${BUILD_NUMBER}")
+                        dockerImage.push("latest")
                     }
                 }
             }
@@ -51,6 +50,9 @@ pipeline {
     post {
         always {
             cleanWs()
+            script {
+                docker rmi -f $(docker images -aq)
+            }
         }
     }
 }
