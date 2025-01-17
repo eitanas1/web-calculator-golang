@@ -31,7 +31,7 @@ pipeline {
                 dir('./docker') {
                     script {
                         sh "docker images"
-                        dockerImage = docker.build("${registry}":"${BUILD_NUMBER}")
+                        dockerImage = docker.build("${registry}:${BUILD_NUMBER}")
                         sh "docker images"
                     }
                 }
