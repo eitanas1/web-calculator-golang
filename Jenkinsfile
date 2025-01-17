@@ -27,13 +27,14 @@ pipeline {
             }
         }
         
-        stage('Dependency-Check') {
+        /*stage('Dependency-Check') {
             steps {
                 // Invoke OWASP Dependency-Check
-                dependencyCheck additionalArguments: '--project WORKSPACE', odcInstallation: 'SCA'
-                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+                //dependencyCheck additionalArguments: '--project WORKSPACE', odcInstallation: 'SCA'
+                //dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+                
             }
-        }
+        }*/
         
         stage('Build Image') {
             steps {
@@ -41,6 +42,7 @@ pipeline {
                 dir('./docker') {
                     script {
                         dockerImage = docker.build("${registry}:${BUILD_NUMBER}")
+                        aqua containerRuntime: 'docker', customFlags: '', hideBase: false, hostedImage: '', localImage: "${registry}:${BUILD_NUMBER}", localToken: '', locationType: 'local', notCompliesCmd: '', onDisallowed: 'ignore', policies: '', register: false, registry: '', runtimeDirectory: '', scannerPath: '', showNegligible: false, tarFilePath: ''
                     }
                 }
             }
