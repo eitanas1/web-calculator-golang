@@ -31,6 +31,7 @@ pipeline {
                 dir('./docker') {
                     script {
                         dockerImage = docker.build("${registry}")
+                        sh "docker images"
                     }
                 }
             }
@@ -50,7 +51,10 @@ pipeline {
     post {
         always {
             cleanWs()
-            sh 'docker rmi -f $(docker images -aq)'
+            sh "docker images"
+            sh "docker rmi -f ${registry}"
+            sh "docker images"
+            // sh 'docker rmi -f $(docker images -aq)'
         }
     }
 }
