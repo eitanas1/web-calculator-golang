@@ -4,7 +4,10 @@ WORKDIR /app
 
 EXPOSE 8080
 
-ENV HOST=localhost
+ENV HOST=localhost \
+    LOG_LEVEL=INFO \
+  	USERNAME=username \
+  	USER_PASSWORD=user_password
 
 COPY web-calculator .
 
