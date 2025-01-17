@@ -54,7 +54,7 @@ pipeline {
             cleanWs()
             sh "docker images"
             //sh "docker rmi -f ${registry}"
-            sh 'docker rmi -f $(docker images -aq)'
+            sh 'docker rmi $(docker images -aq)'
             sh "docker images"
         }
     }
