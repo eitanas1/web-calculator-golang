@@ -10,7 +10,7 @@ pipeline {
         dockerImage = ''
     }
     stages {
-        stage('Build') {
+        stage('Build App') {
             steps {
                 // Build the Go application
                 sh """
@@ -19,7 +19,7 @@ pipeline {
                 """
             }
         }
-        stage('Test') {
+        stage('Test App') {
             steps {
                 // Run Go unit tests
                 sh 'go test -v ./...'
@@ -30,9 +30,7 @@ pipeline {
                 // Build the Docker image
                 dir('./docker') {
                     script {
-                        sh "docker images"
                         dockerImage = docker.build("${registry}:${BUILD_NUMBER}")
-                        sh "docker images"
                     }
                 }
             }
@@ -53,7 +51,7 @@ pipeline {
         always {
             cleanWs()
             sh "docker images"
-            sh "docker rmi -f ${registry}:${BUILD_NUMBER} ${registry}:latest"
+            sh "docker rmi -f ${registry}:${BUILD_NUMBER} ${registry}:latest ${registry}:47"
             // sh 'docker rmi $(docker images -aq)'
             sh "docker images"
         }
