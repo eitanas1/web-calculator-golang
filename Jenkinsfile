@@ -47,7 +47,7 @@ pipeline {
             }
         }
 
-        stage('Dependency-Check') {
+        stage('Image Security Check') {
             steps {
                 // Scan image for vulnerabilities
                 //aqua containerRuntime: 'docker', customFlags: '', hideBase: false, hostedImage: '', localImage: "${registry}:${BUILD_NUMBER}", localToken: '', locationType: 'local', notCompliesCmd: '', onDisallowed: 'ignore', policies: '', register: false, registry: '', runtimeDirectory: '', scannerPath: '', showNegligible: false, tarFilePath: ''
