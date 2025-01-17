@@ -53,8 +53,8 @@ pipeline {
         always {
             cleanWs()
             sh "docker images"
-            //sh "docker rmi -f ${registry}"
-            sh 'docker rmi $(docker images -aq)'
+            sh "docker rmi -f ${registry}:${BUILD_NUMBER} ${registry}:latest"
+            // sh 'docker rmi $(docker images -aq)'
             sh "docker images"
         }
     }
