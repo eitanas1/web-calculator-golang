@@ -31,7 +31,7 @@ pipeline {
                 dir('./docker') {
                     script {
                         dockerImage = docker.build("${registry}")
-                        dockerImage.tag(["latest",${BUILD_NUMBER}])
+                        dockerImage.tag(["latest","${BUILD_NUMBER}"])
                         sh 'docker images'
                     }
                 }
