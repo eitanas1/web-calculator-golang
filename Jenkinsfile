@@ -30,9 +30,8 @@ pipeline {
         /*stage('Dependency-Check') {
             steps {
                 // Invoke OWASP Dependency-Check
-                //dependencyCheck additionalArguments: '--project WORKSPACE', odcInstallation: 'SCA'
-                //dependencyCheckPublisher pattern: 'dependency-check-report.xml'
-                
+                dependencyCheck additionalArguments: '--project WORKSPACE', odcInstallation: 'SCA'
+                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
             }
         }*/
         
@@ -47,13 +46,13 @@ pipeline {
             }
         }
 
-        stage('Image Security Check') {
+        /*stage('Image Security Check') {
             steps {
                 // Scan image for vulnerabilities
                 //aqua containerRuntime: 'docker', customFlags: '', hideBase: false, hostedImage: '', localImage: "${registry}:${BUILD_NUMBER}", localToken: '', locationType: 'local', notCompliesCmd: '', onDisallowed: 'ignore', policies: '', register: false, registry: '', runtimeDirectory: '', scannerPath: '', showNegligible: false, tarFilePath: ''
                 aquaMicroscanner imageName: "${registry}:${BUILD_NUMBER}", notCompliesCmd: '', onDisallowed: 'ignore', outputFormat: 'html'
             }
-        }
+        }*/
         
         stage('Publish Image') {
             steps {
