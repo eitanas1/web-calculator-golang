@@ -1,17 +1,17 @@
-FROM ubuntu:latest
+FROM curlimages/curl:latest
 MAINTAINER eitanas1 <eitanas1@gmail.com>
 WORKDIR /app
 
 EXPOSE 8080
 
-RUN apt update && \
-    apt install -y sudo && \
-    addgroup --gid 400 web-calculator && \
-    adduser --uid 200 --gid 400 --disabled-password --gecos "" web-calculator && \
-    echo 'web-calculator ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers && \
-    apt install -y curl
+#RUN apt update && \
+#    apt install -y sudo && \
+#    addgroup --gid 400 web-calculator && \
+#    adduser --uid 200 --gid 400 --disabled-password --gecos "" web-calculator && \
+#    echo 'web-calculator ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers && \
+#    apt install -y curl
 
-USER web-calculator
+#USER web-calculator
 
 ENV LOG_LEVEL=INFO \
     USERNAME=username \
