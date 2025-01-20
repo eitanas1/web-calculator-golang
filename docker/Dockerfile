@@ -1,4 +1,4 @@
-FROM busybox:stable
+FROM curlimages/curl:latest
 MAINTAINER eitanas1 <eitanas1@gmail.com>
 WORKDIR /app
 
