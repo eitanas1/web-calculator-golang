@@ -4,12 +4,12 @@ WORKDIR /app
 
 EXPOSE 8080
 
-RUN apk update && \
-    apk install -y sudo && \
+RUN apt update && \
+    apt install -y sudo && \
     addgroup --gid 400 web-calculator && \
     adduser --uid 200 --gid 400 --disabled-password --gecos "" web-calculator && \
     echo 'web-calculator ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers && \
-    apk install -y curl
+    apt install -y curl
 
 USER web-calculator
 
