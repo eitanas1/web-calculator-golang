@@ -44,12 +44,11 @@ spec:
                 - |-
                   health=$(curl -s -o /dev/null --write-out "%{http_code}" http://localhost:8080/api/v1/calculate --header 'Content-Type: application/json' --data '{ "expression":"1+1" }');
                   if [[ ${health} -ne 200 ]]; then exit 1; fi
-{{/*          readinessProbe:
+          readinessProbe:
             exec:
               command:
-                - curl
-                - -X POST
-                - http://localhost:8080/api/v1/calculate
-                - --header 'Content-Type: application/json'
-                - --data '{ "expression":"1+1" }'
-*/}}
+                - /bin/bash
+                - -c
+                - |-
+                  health=$(curl -s -o /dev/null --write-out "%{http_code}" http://localhost:8080/api/v1/calculate --header 'Content-Type: application/json' --data '{ "expression":"1+1" }');
+                  if [[ ${health} -ne 200 ]]; then exit 1; fi
